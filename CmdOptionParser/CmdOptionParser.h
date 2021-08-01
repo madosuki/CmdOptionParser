@@ -10,13 +10,13 @@ class CmdOptionParser
 {
 
 public:
-	CmdOptionParser(char** l, int s, const std::string& d, std::vector<std::pair<std::string, bool> >& o_key_list)
+	CmdOptionParser(char** l, int s, const std::string& p, std::vector<std::pair<std::string, bool> >& o_key_list)
 	{
 
 		arguments_list_size = s;
 		arguments_list = l;
-		delimiter = d;
-		delimiter_size = d.size();
+		option_prefix = p;
+		option_prefix_size = p.size();
 
 		// options_key_list.resize(o_key_list.size());
 		// std::copy(o_key_list.begin(), o_key_list.end(), options_key_list.begin());
@@ -32,10 +32,10 @@ public:
 private:
 	char** arguments_list = nullptr;
 	int arguments_list_size;
-	std::string delimiter;
+	std::string option_prefix;
+	size_t option_prefix_size;
 	std::vector<std::pair<std::string, bool> > options_key_list;
 	std::vector<std::pair<std::string, std::string> > options_list = {};
-	size_t delimiter_size;
 
 	bool DetectOptinonKey(char* target, size_t size);
 

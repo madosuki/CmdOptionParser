@@ -11,21 +11,21 @@ std::vector<std::pair<std::string, std::string> > CmdOptionParser::GetOptions()
 
 bool CmdOptionParser::DetectOptinonKey(char* target, size_t size)
 {
-	if (size <= delimiter_size)
+	if (size <= option_prefix_size)
 	{
 		return false;
 	}
 
 	int count = 0;
-	for (size_t i = 0; i < delimiter_size; ++i)
+	for (size_t i = 0; i < option_prefix_size; ++i)
 	{
-		if (target[i] == delimiter[i])
+		if (target[i] == option_prefix[i])
 		{
 			++count;
 		}
 	}
 
-	if (count != delimiter_size)
+	if (count != option_prefix_size)
 	{
 		return false;
 	}
@@ -70,7 +70,7 @@ int CmdOptionParser::DetectOptions()
 			{
 				size_t tmp_size = s_size - 1;
 				auto tmp = std::make_unique<char[]>(tmp_size);
-				int err = memmove_s(tmp.get(), tmp_size, arguments_list[i] + delimiter_size, tmp_size);
+				int err = memmove_s(tmp.get(), tmp_size, arguments_list[i] + option_prefix_size, tmp_size);
 
 				auto iter = std::find_if(options_key_list.begin(), options_key_list.end(), [&](const std::pair<std::string, bool>& x) { return x.first == tmp.get(); });
 
