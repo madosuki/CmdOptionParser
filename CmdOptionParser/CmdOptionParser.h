@@ -18,8 +18,6 @@ public:
 		option_prefix = p;
 		option_prefix_size = p.size();
 
-		// options_key_list.resize(o_key_list.size());
-		// std::copy(o_key_list.begin(), o_key_list.end(), options_key_list.begin());
 		options_key_list = std::move(o_key_list);
 	}
 
