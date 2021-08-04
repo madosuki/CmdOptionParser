@@ -10,13 +10,13 @@ class CmdOptionParser
 {
 
 public:
-	CmdOptionParser(char** l, int s, const std::string& p, std::vector<std::pair<std::string, bool> >& o_key_list)
+	CmdOptionParser(char** argv, int argc, const std::string& prefix, std::vector<std::pair<std::string, bool> >& o_key_list)
 	{
 
-		arguments_list_size = s;
-		arguments_list = l;
-		option_prefix = p;
-		option_prefix_size = p.size();
+		arguments_list_size = argc;
+		arguments_list = argv;
+		option_prefix = prefix;
+		option_prefix_size = prefix.size();
 
 		options_key_list = std::move(o_key_list);
 	}
