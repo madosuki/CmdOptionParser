@@ -3,10 +3,38 @@
 
 #include "CmdOptionParser.h"
 
+CmdOptionParser::CmdOptionParser(char** argv, int argc, const std::string& prefix, std::vector<std::pair<std::string, bool> > o_key_list)
+{
+
+	arguments_list_size = argc;
+	arguments_list = argv;
+	option_prefix = prefix;
+	option_prefix_size = prefix.size();
+
+	// options_key_list = std::move(o_key_list);
+
+	options_key_list.resize(o_key_list.size());
+	auto result = std::copy(o_key_list.begin(), o_key_list.end(), options_key_list.begin());
+	if (result == options_key_list.end())
+	{
+		if (option_prefix_size > 0 && argc > 0)
+		{
+			isAvailableRun = true;
+		}
+	}
+}
+
+CmdOptionParser::~CmdOptionParser() {}
+
 std::vector<std::pair<std::string, std::string> > CmdOptionParser::GetOptions()
 {
 
 	return options_list;
+}
+
+bool CmdOptionParser::IsAvailableRun()
+{
+	return isAvailableRun;
 }
 
 bool CmdOptionParser::DetectOptinonKey(char* target, size_t size)
@@ -36,7 +64,7 @@ bool CmdOptionParser::DetectOptinonKey(char* target, size_t size)
 int CmdOptionParser::DetectOptions()
 {
 
-	if (arguments_list_size < 1 || !isAvailableKey)
+	if (arguments_list_size < 1 || !isAvailableRun)
 	{
 		return -1;
 	}
