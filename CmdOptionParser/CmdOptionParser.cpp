@@ -36,10 +36,11 @@ bool CmdOptionParser::DetectOptinonKey(char* target, size_t size)
 int CmdOptionParser::DetectOptions()
 {
 
-	if (arguments_list_size < 2)
+	if (arguments_list_size < 1 || !isAvailableKey)
 	{
-		return 0;
+		return -1;
 	}
+
 
 	std::vector<std::pair<std::string, std::string> > result = {};
 

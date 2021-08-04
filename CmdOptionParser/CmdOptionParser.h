@@ -18,12 +18,24 @@ public:
 		option_prefix = prefix;
 		option_prefix_size = prefix.size();
 
-		options_key_list = std::move(o_key_list);
+		std::vector<std::pair<std::string, bool> > tmp(o_key_list.size());
+		auto result = std::copy(o_key_list.begin(), o_key_list.end(), tmp.begin());
+		if(result == o_key_list.end())
+		{
+			options_key_list = tmp;
+
+			if (option_prefix_size > 0 && argc > 0)
+			{
+				isAvailableKey = true;
+			}
+		}
 	}
 
 	~CmdOptionParser() {}
 
 	int DetectOptions();
+
+	bool IsAvailableRun() { return isAvailableKey;  }
 
 	std::vector<std::pair<std::string, std::string> > GetOptions();
 
@@ -34,6 +46,7 @@ private:
 	size_t option_prefix_size;
 	std::vector<std::pair<std::string, bool> > options_key_list;
 	std::vector<std::pair<std::string, std::string> > options_list = {};
+	bool isAvailableKey = false;
 
 	bool DetectOptinonKey(char* target, size_t size);
 
